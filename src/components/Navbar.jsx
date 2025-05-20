@@ -59,7 +59,7 @@ const Navbar = () => {
                     </span>
                 </div>
             </div>
-            <ul className={`px-8 space-y-6 text-lg font-medium text-gray-600 w-1/2 bg-transparent top-0 py-6 backdrop-blur-lg xl:hidden  absolute ${open ? 'left-0' : '-left-130 '} duration-1000`}>
+            <ul className={`px-8 space-y-7 text-xl font-semibold text-gray-600 md:w-1/2 h-screen lg:w-1/3 w-2/3 bg-transparent top-0 py-10 backdrop-blur-xl xl:hidden absolute ${open ? 'left-0' : '-left-180 '} duration-1000`}>
                 {links}
             </ul>
         </nav>
