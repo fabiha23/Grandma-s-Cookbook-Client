@@ -59,7 +59,8 @@ const AuthDataProvider = ({ children }) => {
         user,
         auth,
         signOutUser,
-        loading
+        loading,
+        setUser
     }
 
     return (

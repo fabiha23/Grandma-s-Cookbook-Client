@@ -7,7 +7,7 @@ import { AuthDataContext } from '../Contexts/AuthDataContext';
 const Navbar = () => {
     const [open, setOpen] = useState(false)
     const [openUser, setOpenUser] = useState(false)
-    const { user, loading } = use(AuthDataContext)
+    const { user } = use(AuthDataContext)
 
     //     if (loading) {
     //     return <div className='text-center py-5'>Loading...</div>; // or your spinner
@@ -64,9 +64,7 @@ const Navbar = () => {
                 </div>
                 <div className='flex gap-2 items-center'>
                     <button>Toggle</button>
-                    {loading ? (
-                        <>Loading...</> // or a spinner component
-                    ) : user ? (
+                    {user &&
                         <div className='relative'>
                             <img onClick={() => setOpenUser(!openUser)} className='w-9 h-9 object-cover rounded-full cursor-pointer' src={user.photoURL} alt="User" />
                             {openUser && (
@@ -76,7 +74,7 @@ const Navbar = () => {
                                 </div>
                             )}
                         </div>
-                    ) : null}
+                    }
                     <span onClick={() => setOpen(!open)}>{
                         open ? <RxCross2 size={32} /> : <IoMenu size={32} className='xl:hidden' />
                     }

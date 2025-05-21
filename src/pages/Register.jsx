@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 
 const Register = () => {
 
-    const { registerUser, signInWithGoogle, auth } = useContext(AuthDataContext)
+    const { registerUser, signInWithGoogle, auth,setUser } = useContext(AuthDataContext)
     const navigate = useNavigate()
     const [error, setError] = useState('')
     const location = useLocation()
@@ -42,7 +42,10 @@ const Register = () => {
                     photoURL: photo
                 }
                 updateProfile(auth.currentUser, profile)
-                    .then(() => console.log('okay'))
+                    .then(() =>{
+                        setUser({...res.user, displayName: name,
+                    photoURL: photo})
+                    })
                     .catch(err => console.log(err))
 
             })
