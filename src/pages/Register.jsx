@@ -1,9 +1,108 @@
-import React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
+import { FcGoogle } from 'react-icons/fc';
+import { updateProfile } from 'firebase/auth';
+import { AuthDataContext } from '../Contexts/AuthDataContext';
+import { useContext, useState } from 'react';
 
 const Register = () => {
+
+    const { registerUser, signInWithGoogle, auth } = useContext(AuthDataContext)
+    const navigate = useNavigate()
+    const [error, setError] = useState('')
+    const location = useLocation()
+
+    const handleRegister = e => {
+        e.preventDefault();
+
+        const name = e.target.name.value;
+        const photo = e.target.photo.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(name, email, photo, password)
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+        if (!name || !photo || !email || !password) {
+            setError('All fields are required');
+            return;
+        }
+
+        if (!passwordRegex.test(password)) {
+            setError('Password must have at least one uppercase letter, one lowercase letter, and be at least 6 characters long.');
+            return;
+        }
+
+        registerUser(email, password, name, photo)
+            .then(res => {
+                console.log(res.user)
+                navigate(location?.state || '/')
+                setError('')
+                const profile = {
+                    displayName: name,
+                    photoURL: photo
+                }
+                updateProfile(auth.currentUser, profile)
+                    .then(() => console.log('okay'))
+                    .catch(err => console.log(err))
+
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+    }
+
+    const handleGoogleSignUp = () => {
+        signInWithGoogle()
+            .then(res => {
+                setError('')
+                console.log(res.user)
+                navigate(location?.state || '/')
+
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
-        <div>
-            
+        <div className='flex justify-center'>
+            <title>Register</title>
+            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl my-5">
+                <h2 className='text-accent font-semibold text-xl border-b-1 pt-6 mx-6 border-base-300 text-center'>Register your account</h2>
+                <div className="card-body">
+                    <form onSubmit={handleRegister} className="fieldset px-3 space-y-1">
+                        {/* name */}
+                        <label className="label font-medium text-sm">Your Name</label>
+                        <input name='name' type="text" className="input w-full text-xs" placeholder="Enter you name" />
+                        {/* photo */}
+                        <label className="label font-medium text-sm">Photo-URL</label>
+                        <input name='photo' type="text" className="input w-full text-xs" placeholder="Enter your photo url" />
+                        {/* email */}
+                        <label className="label font-medium text-sm">Email</label>
+                        <input name='email' type="email" className="input w-full text-xs" placeholder="Enter your email address" />
+                        {/* password */}
+                        <label className="label font-medium text-sm">Password</label>
+                        <input name='password' type="password" className="input w-full text-xs" placeholder="Enter your password" />
+
+                        <button type='submit' className="btn btn-primary mt-1 hover:btn-accent hover:text-white duration-300">Register</button>
+                        <p>
+                            {
+                                error && <span className='text-red-600 font-medium text-sm flex items-center gap-1'>
+                                    {error}</span>
+                            }
+                        </p>
+                    </form>
+
+                    <div className="flex items-center justify-center mb-1">
+                        <div className="border-t border-gray-400 flex-grow border-1"></div>
+                        <span className="mx-4 text-gray-500 font-semibold">or</span>
+                        <div className="border-t border-gray-400 flex-grow border-1"></div>
+                    </div>
+                    <button onClick={handleGoogleSignUp} className="btn bg-white text-accent border-[#e5e5e5] border-2">
+                        <FcGoogle size={18} />
+                        Sign Up with Google
+                    </button>
+                    <p className='pt-1 text-sm text-accent font-medium'>Already Have an Account ? <Link to='/login' className='text-info hover:underline cursor-pointer hover:text-primary duration-200'>Login</Link></p>
+                </div>
+            </div>
         </div>
     );
 };

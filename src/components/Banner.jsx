@@ -15,7 +15,7 @@ const Banner = () => {
                         className='bg-base-200 w-full sm:pl-6 pl-3 sm:py-5 py-4 rounded-lg text-accent focus:outline-none sm:text-lg'
                         placeholder='Find what do you want to cook today'
                     />
-                    <button className='absolute right-2 top-1/2 -translate-y-1/2 bg-info py-3 sm:px-5 px-3 rounded-md hover:bg-info-hover '>
+                    <button className='absolute right-2 top-1/2 -translate-y-1/2 py-3 sm:px-5 px-3 rounded-md bg-info hover:bg-[#c92623] duration-300 cursor-pointer'>
                         <IoSearch className='text-base-100 text-xl sm:text-3xl' />
                     </button>
                 </div>
