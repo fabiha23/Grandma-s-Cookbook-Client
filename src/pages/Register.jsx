@@ -66,7 +66,7 @@ const Register = () => {
         <div className='flex justify-center'>
             <title>Register</title>
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl my-5">
-                <h2 className='text-accent font-semibold text-xl border-b-1 pt-6 mx-6 border-base-300 text-center'>Register your account</h2>
+                <h2 className='text-primary font-semibold text-xl pt-6 mx-6 text-center'>Register your account</h2>
                 <div className="card-body">
                     <form onSubmit={handleRegister} className="fieldset px-3 space-y-1">
                         {/* name */}
@@ -92,9 +92,9 @@ const Register = () => {
                     </form>
 
                     <div className="flex items-center justify-center mb-1">
-                        <div className="border-t border-gray-400 flex-grow border-1"></div>
-                        <span className="mx-4 text-gray-500 font-semibold">or</span>
-                        <div className="border-t border-gray-400 flex-grow border-1"></div>
+                        <div className="border-t border-gray-300 flex-grow border-1"></div>
+                        <span className="mx-4 text-gray-500">or</span>
+                        <div className="border-t border-gray-300 flex-grow border-1"></div>
                     </div>
                     <button onClick={handleGoogleSignUp} className="btn bg-white text-accent border-[#e5e5e5] border-2">
                         <FcGoogle size={18} />
