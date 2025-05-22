@@ -74,16 +74,16 @@ const Register = () => {
                     <form onSubmit={handleRegister} className="fieldset px-3 space-y-1">
                         {/* name */}
                         <label className="label font-medium text-sm">Your Name</label>
-                        <input name='name' type="text" className="input w-full text-xs" placeholder="Enter you name" />
+                        <input name='name' type="text" className="input w-full text-sm focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="Enter you name" />
                         {/* photo */}
                         <label className="label font-medium text-sm">Photo-URL</label>
-                        <input name='photo' type="text" className="input w-full text-xs" placeholder="Enter your photo url" />
+                        <input name='photo' type="text" className="input w-full text-sm focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="https://example.com/image.jpg"/>
                         {/* email */}
                         <label className="label font-medium text-sm">Email</label>
-                        <input name='email' type="email" className="input w-full text-xs" placeholder="Enter your email address" />
+                        <input name='email' type="email" className="input w-full text-sm focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="Enter your email address" />
                         {/* password */}
                         <label className="label font-medium text-sm">Password</label>
-                        <input name='password' type="password" className="input w-full text-xs" placeholder="Enter your password" />
+                        <input name='password' type="password" className="input w-full text-sm focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="Enter your password" />
 
                         <button type='submit' className="btn btn-primary mt-1 hover:btn-accent hover:text-white duration-300">Register</button>
                         <p>
