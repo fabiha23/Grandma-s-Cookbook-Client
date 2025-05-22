@@ -1,14 +1,24 @@
-import React, { use, useState } from 'react';
-import { IoMenu } from 'react-icons/io5';
+import React, { use, useEffect, useState } from 'react';
+import { IoMenu, IoMoonOutline } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 import { Link, NavLink } from 'react-router';
 import { AuthDataContext } from '../Contexts/AuthDataContext';
 import { TbLogout2 } from 'react-icons/tb';
+import { FiSun } from 'react-icons/fi';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false)
     const [openUser, setOpenUser] = useState(false)
     const { user, signOutUser } = use(AuthDataContext)
+    const [theme, setTheme] = useState('light');
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+    };
 
     //     if (loading) {
     //     return <div className='text-center py-5'>Loading...</div>; // or your spinner
@@ -70,7 +80,15 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='flex gap-2 items-center'>
-                    <button>Togg</button>
+                    <label className="swap swap-rotate">
+                        <input type="checkbox" onChange={toggleTheme} checked={theme === 'dark'} />
+
+                        {/* Sun icon (light mode) */}
+                        <FiSun className="swap-on w-6 h-6" />
+
+                        {/* Moon icon (dark mode) */}
+                        <IoMoonOutline className="swap-off w-6 h-6" />
+                    </label>
                     {user &&
                         <div className='relative'>
                             <img onClick={() => setOpenUser(!openUser)} className='w-7 h-7 lg:w-8 lg:h-8 object-cover rounded-full cursor-pointer' src={user.photoURL} alt="User" />

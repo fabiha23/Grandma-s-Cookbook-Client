@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 
 const Register = () => {
 
-    const { registerUser, signInWithGoogle, auth,setUser } = useContext(AuthDataContext)
+    const { registerUser, signInWithGoogle, auth, setUser } = useContext(AuthDataContext)
     const navigate = useNavigate()
     const [error, setError] = useState('')
     const location = useLocation()
@@ -14,9 +14,9 @@ const Register = () => {
     const handleRegister = e => {
         e.preventDefault();
 
-        const form=e.target;
+        const form = e.target;
         const formData = new FormData(form);
-        const {password, ...userProfile}= Object.fromEntries(formData.entries())
+        const { password, ...userProfile } = Object.fromEntries(formData.entries())
 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
@@ -40,26 +40,25 @@ const Register = () => {
                     photoURL: userProfile.photo
                 }
                 updateProfile(auth.currentUser, profile)
-                    .then(() =>{
-                        setUser({...res.user, displayName: userProfile.name,
-                    photoURL: userProfile.photo})
-                    //add user to db
-
-                    fetch('http://localhost:3000/users',{
-                        method:'POST',
-                        headers:{
-                            'content-type': 'application/json'
-                        },
-                        body:JSON.stringify(userProfile)
-                    })
-                    .then(res=>res.json())
-                    .then(data=>{
-                        console.log(data);
-                    })
-
+                    .then(() => {
+                        setUser({
+                            ...res.user, displayName: userProfile.name,
+                            photoURL: userProfile.photo
+                        })
+                        //add user to db
+                        fetch('http://localhost:3000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(userProfile)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log(data);
+                            })
                     })
                     .catch(err => console.log(err))
-
             })
             .catch(error => {
                 console.log(error.message)
@@ -71,8 +70,19 @@ const Register = () => {
             .then(res => {
                 setError('')
                 console.log(res.user)
+                const userProfile = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    photo: res.user.photoURL
+                };
                 navigate(location?.state || '/')
-
+                fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userProfile)
+                })
             })
             .catch(err => console.log(err))
     }
@@ -89,7 +99,7 @@ const Register = () => {
                         <input name='name' type="text" className="input w-full text-sm focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="Enter you name" />
                         {/* photo */}
                         <label className="label font-medium text-sm">Photo-URL</label>
-                        <input name='photo' type="text" className="input w-full text-sm focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="https://example.com/image.jpg"/>
+                        <input name='photo' type="text" className="input w-full text-sm focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="https://example.com/image.jpg" />
                         {/* email */}
                         <label className="label font-medium text-sm">Email</label>
                         <input name='email' type="email" className="input w-full text-sm focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="Enter your email address" />

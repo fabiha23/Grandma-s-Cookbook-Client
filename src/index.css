@@ -3,8 +3,9 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: light --default;
+  themes: ["dark", "light"];
 }
+
 
 @plugin "daisyui/theme" {
   name: "light";
@@ -19,6 +20,20 @@
   --color-info: #E92D28; /* Cherry Red */
   --color-info-hover: #C92623; /* Dark Cherry */
   --color-border: #D9CFC1; /* Soft Beige */
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #A3C4A8;          /* Soft Avocado Tint */
+  --color-primary-hover: #90B093;    /* Slightly Darker Tint */
+  --color-secondary: #EACDA3;        /* Warm Beige */
+  --color-secondary-hover: #D6B88E;  /* Darker Warm Beige */
+  --color-base-100: #1E293B;         /* Deep Charcoal */
+  --color-base-200: #2C2C2C;         /* Slightly Lighter Charcoal */
+  --color-accent: #F4F4F4;           /* Soft White Text */
+  --color-info: #F2857A;             /* Light Cherry */
+  --color-info-hover: #E76A5E;       /* Dark Cherry */
+  --color-border: #3A3A3A;           /* Subtle Border Gray */
+
 }
 
 * {
