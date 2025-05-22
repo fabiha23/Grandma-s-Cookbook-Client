@@ -6,11 +6,25 @@ const AddRecipe = () => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
-        const recipeData = Object.fromEntries(formData.entries());
-        recipeData.likeCount = 0;
+        const newRecipe = Object.fromEntries(formData.entries());
+        newRecipe.likeCount = 0;
         const categories = formData.getAll('category');
-        recipeData.category = categories;
-        console.log(recipeData);
+        newRecipe.category = categories;
+        console.log(newRecipe);
+
+        //add to db
+
+        fetch('http://localhost:3000/recipes',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(newRecipe)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+        })
     }
     return (
         <div className='max-w-7xl xl:mx-auto xl:px-2 lg:px-6 mx-3 my-10 border-base-300 border-2 rounded-md'>
@@ -65,7 +79,7 @@ const AddRecipe = () => {
                             </div>
                         </fieldset>
                     </div>
-                    <input type="submit" value="Add Recipe" className='bg-primary text-base-100 w-full mt-6 py-2 rounded-md text-lg font-semibold shadow-md cursor-pointer hover:bg-[#588B44] duration-300' />
+                    <input type="submit" value="Add Recipe" className='bg-primary text-base-100 w-full mt-6 py-2 rounded-md text-lg font-semibold shadow-md cursor-pointer hover:bg-[#588B44] duration-300 hover:rounded-full' />
                 </form>
             </div>
         </div>
