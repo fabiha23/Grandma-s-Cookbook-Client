@@ -6,6 +6,7 @@ import AllRecipe from "../pages/AllRecipe";
 import MyRecipe from "../pages/MyRecipe";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const router=createBrowserRouter([
     {
@@ -18,7 +19,7 @@ export const router=createBrowserRouter([
             },
             {
                 path:'/add-recipe',
-                Component: AddRecipe
+                element: <PrivateRoutes><AddRecipe></AddRecipe></PrivateRoutes>
             },
             {
                 path:'/all-recipe',
@@ -26,7 +27,7 @@ export const router=createBrowserRouter([
             },
             {
                 path:'/my-recipe',
-                Component: MyRecipe
+                element: <PrivateRoutes><MyRecipe></MyRecipe></PrivateRoutes>
             },
             {
                 path:'/login',

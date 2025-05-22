@@ -94,7 +94,7 @@ const Login = () => {
                     </button>
                     <p className="pt-1 text-sm text-accent font-medium">
                         Don’t Have An Account?{' '}
-                        <Link to="/register" className="text-info hover:underline cursor-pointer">
+                        <Link to="/register" state={location.state} className="text-info hover:underline cursor-pointer">
                             Register
                         </Link>
                     </p>

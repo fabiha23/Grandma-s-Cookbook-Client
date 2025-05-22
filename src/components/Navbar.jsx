@@ -3,11 +3,12 @@ import { IoMenu } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 import { Link, NavLink } from 'react-router';
 import { AuthDataContext } from '../Contexts/AuthDataContext';
+import { TbLogout2 } from 'react-icons/tb';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false)
     const [openUser, setOpenUser] = useState(false)
-    const { user } = use(AuthDataContext)
+    const { user, signOutUser } = use(AuthDataContext)
 
     //     if (loading) {
     //     return <div className='text-center py-5'>Loading...</div>; // or your spinner
@@ -49,6 +50,12 @@ const Navbar = () => {
             </>)
         }
     </>
+
+    const handleSignOut = () => {
+        signOutUser()
+            .then(() => console.log('sign out hoise'))
+            .catch(error => console.log(error))
+    }
     return (
         <nav>
             <div className='flex justify-between py-6 items-center'>
@@ -68,9 +75,10 @@ const Navbar = () => {
                         <div className='relative'>
                             <img onClick={() => setOpenUser(!openUser)} className='w-9 h-9 object-cover rounded-full cursor-pointer' src={user.photoURL} alt="User" />
                             {openUser && (
-                                <div className="absolute right-0 mt-2 bg-base-100 p-3 shadow rounded z-50 text-accent text-lg border-2 border-[#D9CFC1] w-50">
-                                    <p>{user.displayName}</p>
-                                    <button>Logout</button>
+                                <div className="absolute right-0 mt-2 bg-base-100 p-3 shadow rounded z-50 text-accent text-lg border-2 border-[#D9CFC1] w-50 space-y-1">
+                                    <p className='font-medium'>{user.displayName}</p>
+                                    <button className='flex items-center gap-2 bg-base-00 border-2 border-[#D9CFC1] p-1 px-3 shadow-sm rounded-sm cursor-pointer font-medium' onClick={handleSignOut}><TbLogout2 />
+                                        Logout</button>
                                 </div>
                             )}
                         </div>
