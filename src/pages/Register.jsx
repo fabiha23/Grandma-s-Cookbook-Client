@@ -14,15 +14,13 @@ const Register = () => {
     const handleRegister = e => {
         e.preventDefault();
 
-        const name = e.target.name.value;
-        const photo = e.target.photo.value;
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        console.log(name, email, photo, password)
+        const form=e.target;
+        const formData = new FormData(form);
+        const {password, ...userProfile}= Object.fromEntries(formData.entries())
 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
-        if (!name || !photo || !email || !password) {
+        if (!userProfile.name || !userProfile.photo || !userProfile.email || !password) {
             setError('All fields are required');
             return;
         }
@@ -32,19 +30,33 @@ const Register = () => {
             return;
         }
 
-        registerUser(email, password, name, photo)
+        registerUser(userProfile.email, password, userProfile.name, userProfile.photo)
             .then(res => {
                 console.log(res.user)
                 navigate(location?.state || '/')
                 setError('')
                 const profile = {
-                    displayName: name,
-                    photoURL: photo
+                    displayName: userProfile.name,
+                    photoURL: userProfile.photo
                 }
                 updateProfile(auth.currentUser, profile)
                     .then(() =>{
-                        setUser({...res.user, displayName: name,
-                    photoURL: photo})
+                        setUser({...res.user, displayName: userProfile.name,
+                    photoURL: userProfile.photo})
+                    //add user to db
+
+                    fetch('http://localhost:3000/users',{
+                        method:'POST',
+                        headers:{
+                            'content-type': 'application/json'
+                        },
+                        body:JSON.stringify(userProfile)
+                    })
+                    .then(res=>res.json())
+                    .then(data=>{
+                        console.log(data);
+                    })
+
                     })
                     .catch(err => console.log(err))
 
