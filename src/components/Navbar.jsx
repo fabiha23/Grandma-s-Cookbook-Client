@@ -70,10 +70,10 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='flex gap-2 items-center'>
-                    <button>Toggle</button>
+                    <button>Togg</button>
                     {user &&
                         <div className='relative'>
-                            <img onClick={() => setOpenUser(!openUser)} className='w-9 h-9 object-cover rounded-full cursor-pointer' src={user.photoURL} alt="User" />
+                            <img onClick={() => setOpenUser(!openUser)} className='w-7 h-7 lg:w-8 lg:h-8 object-cover rounded-full cursor-pointer' src={user.photoURL} alt="User" />
                             {openUser && (
                                 <div className="absolute right-0 mt-2 bg-base-100 p-3 shadow rounded z-50 text-accent text-lg border-2 border-[#D9CFC1] w-50 space-y-1">
                                     <p className='font-medium'>{user.displayName}</p>

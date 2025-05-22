@@ -5,13 +5,13 @@ const Loading = () => {
   const [animationData, setAnimationData] = useState(null);
 
   useEffect(() => {
-    fetch('/Main Scene.json') // make sure it's exactly this path in public
+    fetch('/Main Scene.json') 
       .then((res) => res.json())
       .then((data) => setAnimationData(data));
   }, []);
 
   return (
-    <div className='w-40 mx-auto'>
+    <div className='w-40 mx-auto my-9'>
       {animationData && (
         <Lottie animationData={animationData} loop={true} />
       )}
