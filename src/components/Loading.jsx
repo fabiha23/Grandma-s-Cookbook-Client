@@ -11,7 +11,7 @@ const Loading = () => {
   }, []);
 
   return (
-    <div className='w-40 mx-auto my-9'>
+    <div className='w-40 mx-auto my-10'>
       {animationData && (
         <Lottie animationData={animationData} loop={true} />
       )}

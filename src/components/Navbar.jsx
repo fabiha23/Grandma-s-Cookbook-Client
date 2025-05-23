@@ -87,7 +87,7 @@ const Navbar = () => {
                         <FiSun className="swap-on w-6 h-6" />
 
                         {/* Moon icon (dark mode) */}
-                        <IoMoonOutline className="swap-off w-6 h-6" />
+                        <IoMoonOutline className="swap-off sm:w-7 sm:h-7 w-6 h-6" />
                     </label>
                     {user &&
                         <div className='relative'>
