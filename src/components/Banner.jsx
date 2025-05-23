@@ -15,7 +15,7 @@ const Banner = () => {
                     <h1 className='font-bold text-4xl md:text-5xl text-accent'>“Wholesome Recipes, Handed Down with Love”</h1>
                 </Fade>
                 <Fade
-                    delay={300} // Wait 200ms before starting
+                    delay={400} // Wait 200ms before starting
                     duration={2000} // Animation lasts 1 second
                     triggerOnce // Only animate once
                     fraction={0.5} // Start animation when element is 50% visible
@@ -25,7 +25,7 @@ const Banner = () => {
                     </p>
                 </Fade>
                 <Fade
-                    delay={500} // Wait 200ms before starting
+                    delay={600} // Wait 200ms before starting
                     duration={2000} // Animation lasts 1 second
                     triggerOnce // Only animate once
                     fraction={0.5} // Start animation when element is 50% visible
