@@ -24,7 +24,7 @@ const TopRecipe = () => {
     }, []);
     return (
         <div>
-            <div className="py-20">
+            <div className="py-16">
                 {loading ? (
                     <Loading></Loading>
                 ) : (<>

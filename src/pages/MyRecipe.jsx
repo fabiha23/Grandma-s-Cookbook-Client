@@ -57,8 +57,32 @@ const MyRecipe = () => {
         });
     }
 
-    const handleAddRecipe = e => {
+    const handleUpRecipe = e => {
         e.preventDefault()
+        const form = e.target;
+        const formData = new FormData(form);
+        const updatedRecipe = Object.fromEntries(formData.entries())
+
+        fetch(`http://localhost:3000/recipes/${mine._id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(updatedRecipe)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    Swal.fire({
+                        title: "Updated Your Recipe",
+                        icon: "success",
+                        draggable: true,
+                        timer: 3000,
+                        confirmButtonColor: "#6A994E"
+                    });
+                    document.getElementById('my_modal_5').close();
+                }
+            })
     }
     return (
         <div className='max-w-7xl xl:mx-auto xl:px-2 lg:px-6 mx-3'>
@@ -136,7 +160,7 @@ const MyRecipe = () => {
                         {/* modal */}
                         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
                             <div className="modal-box">
-                                <form onSubmit={handleAddRecipe} className='md:p-6'>
+                                <form onSubmit={handleUpRecipe} className='md:p-6'>
                                     <div className='grid grid-cols-2 gap-2 '>
                                         <fieldset className="fieldset bg-base-200 rounded-box w-full">
                                             <label className="text-accent font-semibold text-base">Image URL</label>
@@ -173,7 +197,7 @@ const MyRecipe = () => {
                                             <div className="flex flex-wrap gap-4 mt-2 text-base">
                                                 {['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Vegan'].map((cat, index) => (
                                                     <label key={index} className="label cursor-pointer text-accent">
-                                                        <input name='category' type="checkbox" className="checkbox checkbox-sm mr-2  text-accent" value={cat} defaultChecked={reci.category.includes(cat)}/>
+                                                        <input name='category' type="checkbox" className="checkbox checkbox-sm mr-2  text-accent" value={cat} defaultChecked={reci.category.includes(cat)} />
                                                         {cat}
                                                     </label>
                                                 ))}
@@ -199,4 +223,4 @@ const MyRecipe = () => {
     );
 };
 
-export default MyRecipe;
+export default MyRecipe; 
