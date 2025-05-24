@@ -5,6 +5,10 @@ import Loading from '../components/Loading';
 const AllRecipe = () => {
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selected, setSelected] = useState('');
+    const filteredRecipes = selected === 'All' || !selected
+        ? recipes
+        : recipes.filter(reci => reci.cuisine === selected);
 
     useEffect(() => {
         fetch('http://localhost:3000/recipes')
@@ -21,13 +25,21 @@ const AllRecipe = () => {
 
     return (
         <div className='max-w-7xl xl:mx-auto xl:px-2 lg:px-6 mx-3'>
-            <div className="py-14">
+            <div className="py-9">
                 {loading ? (
                     <Loading></Loading>
                 ) : (<>
                     <h2 className="text-4xl font-bold text-center text-primary">All Recipes</h2>
-                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 gap-6 xl:mt-14 grid-cols-2 mt-10">
-                        {recipes.map(recipe => (<Recipe key={recipe._id} recipe={recipe}></Recipe>
+                    <select required name='cuisine' className="my-10 select  focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md text-accent w-full sm:w-1/2 border-2 shadow-sm" onChange={(e) => setSelected(e.target.value)}>
+                        <option value='All'>All</option>
+                        <option value='Bangladeshi'>Bangladeshi</option>
+                        <option value='Mexican'>Mexican</option>
+                        <option value='Italian'>Italian</option>
+                        <option value='Middle Eastern'>Middle Eastern</option>
+                        <option value='Others'>Others</option>
+                    </select>
+                    <div className="grid xl:grid-cols-4 md:grid-cols-3 gap-6 grid-cols-1 sm:grid-cols-2">
+                        {filteredRecipes.map(recipe => (<Recipe key={recipe._id} recipe={recipe}></Recipe>
                         ))}
                     </div>
                 </>
