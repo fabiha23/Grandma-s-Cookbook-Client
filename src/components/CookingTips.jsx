@@ -42,15 +42,15 @@ const tips = [
 
 const CookingTips = () => {
   return (
-    <div className="py-20 px-4">
-      <h2 className="text-4xl font-bold text-center text-primary mb-12">
+    <div className="md:py-18 py-14 px-4">
+      <h2 className="sm:text-4xl text-3xl font-bold text-center text-primary md:mb-11 mb-8">
         Quick Cooking Tips
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {tips.map((tip, index) => (
           <Fade key={index} direction="up">
             <div
-              className={`relative bg-[#E2DCC5] p-5 rounded-md shadow-md text-center hover:rotate-[-3deg] rotate-0 transition-transform duration-300 border-2 border-[#D9CFC1]`}
+              className={`relative bg-[#E2DCC5] p-5 rounded-sm shadow-md text-center hover:rotate-[-3deg] rotate-0 transition-transform duration-300 border-2 border-[#D9CFC1]`}
             >
               <div className="text-4xl mb-2">{tip.icon}</div>
               <h3 className="text-lg font-bold mb-1 text-accent ">{tip.title}</h3>

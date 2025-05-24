@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { use, useState } from 'react';
+import { AuthDataContext } from '../Contexts/AuthDataContext';
+import Swal from 'sweetalert2';
 
 const AddRecipe = () => {
 
-    
+    const { user } = use(AuthDataContext);
+    const [categoryError, setCategoryError] = useState('');
 
     const handleAddRecipe = e => {
         e.preventDefault();
@@ -12,21 +15,40 @@ const AddRecipe = () => {
         newRecipe.likeCount = 0;
         const categories = formData.getAll('category');
         newRecipe.category = categories;
+        newRecipe.userName = user.displayName;
+        newRecipe.userEmail = user.email;
+        newRecipe.userPhoto = user.photoURL;
         console.log(newRecipe);
 
-        //add to db
+        if (categories.length === 0) {
+            setCategoryError('Please select at least one category');
+            return;
+        } else {
+            setCategoryError('');
+        }
 
-        fetch('http://localhost:3000/recipes',{
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
+        //add to db
+        fetch('http://localhost:3000/recipes', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
             },
             body: JSON.stringify(newRecipe)
         })
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: "Added to the Cookbook",
+                        icon: "success",
+                        draggable: true,
+                        timer: 3000,
+                        confirmButtonColor: "#6A994E"
+                    });
+                    form.reset()
+                }
+            })
     }
     return (
         <div className='max-w-7xl xl:mx-auto xl:px-2 lg:px-6 mx-3 my-10 border-base-300 border-2 rounded-md'>
@@ -41,23 +63,23 @@ const AddRecipe = () => {
                     <div className='grid grid-cols-2 gap-2 '>
                         <fieldset className="fieldset bg-base-200 rounded-box w-full">
                             <label className="text-accent font-semibold text-base">Image URL</label>
-                            <input name='photo' type="text" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="https://example.com/image.jpg" />
+                            <input required name='photo' type="text" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="https://example.com/image.jpg" />
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 rounded-box w-full">
                             <label className="text-accent font-semibold text-base">Recipe Name</label>
-                            <input name='name' type="text" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="Chicken korma" />
+                            <input required name='name' type="text" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="Chicken korma" />
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 rounded-box w-full col-span-2">
                             <label className="text-accent font-semibold text-base">Ingredients</label>
-                            <textarea name='ingredients' className="textarea w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" rows="3" placeholder="List ingredients separated by commas"></textarea>
+                            <textarea required name='ingredients' className="textarea w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" rows="3" placeholder="List ingredients separated by commas"></textarea>
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 rounded-box w-full col-span-2">
                             <label className="text-accent font-semibold text-base">Instructions</label>
-                            <textarea name='instructions' className="textarea w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" rows="3" placeholder="Describe the steps to cook your recipe"></textarea>
+                            <textarea required name='instructions' className="textarea w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" rows="3" placeholder="Describe the steps to cook your recipe"></textarea>
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 rounded-box w-full">
                             <label className="text-accent font-semibold text-base">Cuisine Type</label>
-                            <select name='cuisine' className="select w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md text-accent">
+                            <select required name='cuisine' className="select w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md text-accent">
                                 <option value='Bangladeshi'>Bangladeshi</option>
                                 <option value='Mexican'>Mexican</option>
                                 <option value='Italian'>Italian</option>
@@ -67,7 +89,7 @@ const AddRecipe = () => {
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 rounded-box w-full">
                             <label className="text-accent font-semibold text-base">Preparation Time (minutes)</label>
-                            <input name='time' type="number" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="e.g. 30" />
+                            <input required name='time' type="number" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="e.g. 30" />
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 rounded-box w-full col-span-2">
                             <label className="text-accent font-semibold text-base">Categories</label>
@@ -79,9 +101,10 @@ const AddRecipe = () => {
                                     </label>
                                 ))}
                             </div>
+                            {categoryError && <p className="text-red-600 text-sm mt-1">{categoryError}</p>}
                         </fieldset>
                     </div>
-                    <input type="submit" value="Add Recipe" className='bg-primary text-base-100 w-full mt-6 py-2 rounded-md text-lg font-semibold shadow-md cursor-pointer hover:bg-[#588B44] duration-300 hover:rounded-full' />
+                    <input type="submit" value="Add Recipe" className='bg-primary text-base-100 w-full mt-6 py-2 rounded-md text-lg font-semibold shadow-md cursor-pointer hover:bg-[#588B44] duration-300' />
                 </form>
             </div>
         </div>

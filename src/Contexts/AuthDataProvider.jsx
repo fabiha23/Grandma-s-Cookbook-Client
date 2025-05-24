@@ -12,6 +12,7 @@ const AuthDataProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
+
     // useEffect(() => {
     //     fetch('/companies.json')
     //         .then(res => res.json())
@@ -22,9 +23,9 @@ const AuthDataProvider = ({ children }) => {
     //         .catch(err => console.log(err))
     // }, [])
 
-    const registerUser = (email, password,photo,name) => {
+    const registerUser = (email, password, photo, name) => {
         setLoading(true)
-        return createUserWithEmailAndPassword(auth,email,password,photo,name)
+        return createUserWithEmailAndPassword(auth, email, password, photo, name)
     }
 
     const loginUser = (email, password) => {
@@ -32,7 +33,7 @@ const AuthDataProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    const signInWithGoogle=()=>{
+    const signInWithGoogle = () => {
         setLoading(true)
         return signInWithPopup(auth, googleProvider)
     }

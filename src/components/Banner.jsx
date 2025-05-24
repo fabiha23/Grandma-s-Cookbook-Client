@@ -25,7 +25,7 @@ const Banner = () => {
                     </p>
                 </Fade>
                 <Fade
-                    delay={600} // Wait 200ms before starting
+                    delay={700} // Wait 200ms before starting
                     duration={2000} // Animation lasts 1 second
                     triggerOnce // Only animate once
                     fraction={0.5} // Start animation when element is 50% visible
