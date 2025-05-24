@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
                 path: "/recipes/:id",
                 element: <PrivateRoutes><RecipeDetails /></PrivateRoutes>,
                 loader: async ({ params }) => {
-                    const res = await fetch(`http://localhost:3000/recipes/${params.id}`);
+                    const res = await fetch(`https://grandma-s-cookbook-server.vercel.app/recipes/${params.id}`);
                     return res.json();
                 }
             }

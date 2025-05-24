@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Link, useLoaderData, useParams } from 'react-router';
 import AuthDataProvider from '../Contexts/AuthDataProvider';
 import { AuthDataContext } from '../Contexts/AuthDataContext';
@@ -12,9 +12,36 @@ import { IoMdHeart } from 'react-icons/io';
 const RecipeDetails = () => {
     const recipe = useLoaderData()
     const { id } = useParams()
-    const { loading } = use(AuthDataContext)
-    const { name, userName, userPhoto, photo, time, category, cuisine, ingredients, instructions,likeCount } = recipe
-    console.log(recipe);
+    const { loading, user } = use(AuthDataContext)
+    const { name, userName, userPhoto, photo, time, category, cuisine, ingredients, instructions, likeCount, userEmail } = recipe
+    const [like, setLike] = useState(likeCount)
+
+
+
+    const handleLike = () => {
+        const updatedLike = like + 1;
+        setLike(updatedLike);
+
+        fetch(`http://localhost:3000/recipes/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ likeCount: updatedLike })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Like updated:', data);
+            })
+            .catch(err => {
+                console.error('Failed to update like count:', err);
+            });
+    }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className='bg-base-100 py-8'>
             <section className='max-w-7xl xl:mx-auto mx-3 space-y-5 py-3'>
@@ -26,12 +53,18 @@ const RecipeDetails = () => {
                         <div className=' lg:space-y-2  xl:w-full md:w-1/2'>
                             <div className='flex justify-between items-center'>
                                 <Link to='/all-recipe'>
-                                <button className='flex gap-2 items-center cursor-pointer mb-1'>
-                                    <p className='border-2 rounded-full p-2 hover:scale-105 duration-300 will-change-transform'><FaArrowLeft /></p>
-                                    <p className='text-accent font-semibold'>Back to Home</p>
+                                    <button className='flex gap-2 items-center cursor-pointer mb-1'>
+                                        <p className='border-2 rounded-full p-2 hover:scale-105 duration-300 will-change-transform'><FaArrowLeft /></p>
+                                        <p className='text-accent font-semibold'>Back to Home</p>
+                                    </button>
+                                </Link>
+                                <button
+                                    onClick={handleLike}
+                                    disabled={recipe.ownerEmail === user.email}
+                                    className={`text-info hover:scale-105 duration-300  ${userEmail === user.email ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                                >
+                                    <IoMdHeart size={26} />
                                 </button>
-                            </Link>
-                            <p className='text-info hover:scale-105 duration-300 cursor-pointer'><IoMdHeart size={26}/></p>
                             </div>
                             <div className='flex gap-2'>
                                 {category.map((cat, index) =>
@@ -41,7 +74,7 @@ const RecipeDetails = () => {
                             <div className='flex flex-col sm:flex-row sm:space-y-0 space-y-3 justify-between border-b-1 pb-4 border-[#D9CFC1]'>
                                 <div className='space-y-1'>
                                     <h4 className='font-bold text-accent text-3xl'>{name}</h4>
-                                    <p className='text-accent font-semibold opacity-80'>{likeCount} people interested in this recipe</p>
+                                    <p className='text-accent font-semibold opacity-80'>{like} people interested in this recipe</p>
                                 </div>
                                 <div className='flex w-fit items-center gap-3 '>
                                     {userPhoto && (

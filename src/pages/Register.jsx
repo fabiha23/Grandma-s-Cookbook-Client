@@ -46,7 +46,7 @@ const Register = () => {
                             photoURL: userProfile.photo
                         })
                         //add user to db
-                        fetch('http://localhost:3000/users', {
+                        fetch('https://grandma-s-cookbook-server.vercel.app/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -76,7 +76,7 @@ const Register = () => {
                     photo: res.user.photoURL
                 };
                 navigate(location?.state || '/')
-                fetch('http://localhost:3000/users', {
+                fetch('https://grandma-s-cookbook-server.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

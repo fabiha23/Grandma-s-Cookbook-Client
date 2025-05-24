@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import Recipe from '../components/Recipe';
 import Loading from '../components/Loading';
+import { AuthDataContext } from '../Contexts/AuthDataContext';
 
 const AllRecipe = () => {
+    // const{setLoading,loading} = use(AuthDataContext)
+    const [loading,setLoading]=useState(true)
     const [recipes, setRecipes] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [selected, setSelected] = useState('');
     const filteredRecipes = selected === 'All' || !selected
         ? recipes
         : recipes.filter(reci => reci.cuisine === selected);
 
     useEffect(() => {
-        fetch('http://localhost:3000/recipes')
+        fetch('https://grandma-s-cookbook-server.vercel.app/recipes')
             .then(res => res.json())
             .then(data => {
                 setRecipes(data);
@@ -23,9 +25,7 @@ const AllRecipe = () => {
             });
     }, []);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+
 
     return (
         <div className='max-w-7xl xl:mx-auto xl:px-2 lg:px-6 mx-3'>

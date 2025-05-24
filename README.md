@@ -1,12 +1,25 @@
-# React + Vite
+# 🍽️ Grandmas Cookbook
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Grandmas Cookbook is a user-friendly React-based web application that allows users to explore delicious recipes from various cuisines around the world. Users can view recipe details, filter by cuisine type, and enjoy a clean and responsive design.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- View all recipes with images and details
+- Filter recipes by cuisine (e.g., Bangladeshi, Italian, Mexican)
+- See ingredients, preparation time, and categories
+- Responsive UI with modern styling using Tailwind CSS and DaisyUI
+- Dynamic routing with recipe detail pages
 
-## Expanding the ESLint configuration
+## 🔧 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React JS
+- React Router
+- Tailwind CSS + DaisyUI
+- Icons via `react-icons`
+- React Awsome Reveal
+- React Lottie
+- Express JS
+
+## 🚀 Getting Started
+
+Link: 
