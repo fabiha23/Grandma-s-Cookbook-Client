@@ -23,6 +23,10 @@ const AllRecipe = () => {
             });
     }, []);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className='max-w-7xl xl:mx-auto xl:px-2 lg:px-6 mx-3'>
             <div className="py-9">

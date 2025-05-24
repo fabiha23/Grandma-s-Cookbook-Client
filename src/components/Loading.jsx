@@ -11,7 +11,7 @@ const Loading = () => {
   }, []);
 
   return (
-    <div className='w-40 mx-auto my-10'>
+    <div className='w-40 mx-auto flex min-h-[calc(100vh-80px-307px)]'>
       {animationData && (
         <Lottie animationData={animationData} loop={true} />
       )}

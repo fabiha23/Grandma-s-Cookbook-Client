@@ -8,39 +8,50 @@ import Login from "../pages/Login";
 import Error from "../pages/Error";
 import Register from "../pages/Register";
 import PrivateRoutes from "./PrivateRoutes";
+import Loading from "../components/Loading";
+import RecipeDetails from "../pages/RecipeDetails";
 
-export const router=createBrowserRouter([
+export const router = createBrowserRouter([
     {
-        path:'/',
+        path: '/',
         Component: MainLayout,
-        children:[
+        children: [
             {
-                index:true,
-                Component:Home
+                index: true,
+                Component: Home
             },
             {
-                path:'/add-recipe',
+                path: '/add-recipe',
                 element: <PrivateRoutes><AddRecipe></AddRecipe></PrivateRoutes>
             },
             {
-                path:'/all-recipe',
+                path: '/all-recipe',
                 Component: AllRecipe
             },
             {
-                path:'/my-recipe',
+                path: '/my-recipe',
                 element: <PrivateRoutes><MyRecipe></MyRecipe></PrivateRoutes>
             },
             {
-                path:'/login',
+                path: '/login',
                 Component: Login
             },
             {
-                path:'/register',
+                path: '/register',
                 Component: Register
+            },
+            {
+                path: "/recipes/:id",
+                element: <PrivateRoutes><RecipeDetails /></PrivateRoutes>,
+                loader: async ({ params }) => {
+                    const res = await fetch(`http://localhost:3000/recipes/${params.id}`);
+                    return res.json();
+                }
             }
+            ,
         ]
     },
-     {
+    {
         path: '/*',
         element: <Error></Error>
     }

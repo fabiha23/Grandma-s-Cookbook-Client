@@ -2,6 +2,7 @@ import React from 'react';
 import { BiLike, BiWorld } from 'react-icons/bi';
 import { IoTimeOutline } from 'react-icons/io5';
 import { LuClipboardList } from 'react-icons/lu';
+import { Link } from 'react-router';
 
 const Recipe = ({ recipe }) => {
     return (
@@ -22,12 +23,12 @@ const Recipe = ({ recipe }) => {
                 <div className="p-3 flex-grow">
                     <div className="flex flex-wrap gap-2">
                         {recipe.category.map((cat, idx) => (
-                            <p key={idx} className="text-info font-semibold text-base mr-2">
+                            <p key={idx} className="text-info font-semibold text-sm lg:text-base mr-2">
                                 {cat}
                             </p>
                         ))}
                     </div>
-                    <h2 className="card-title text-2xl font-bold text-accent my-3">{recipe.name}</h2>
+                    <h2 className="card-title text-2xl font-bold text-accent sm:my-3 my-2">{recipe.name}</h2>
 
                     <div className="flex items-center gap-2 flex-wrap">
                         <div className="flex items-center gap-1 opacity-80">
@@ -48,9 +49,11 @@ const Recipe = ({ recipe }) => {
                 </div>
 
                 {/* Button stays at bottom */}
+                <Link to={`/recipes/${recipe._id}`}>
                 <div className="bg-primary text-base-100 text-center py-2 rounded-b-lg cursor-pointer font-semibold hover:bg-[#588B44] transition duration-300">
-                    View Recipe
+                    View Details
                 </div>
+                </Link>
             </div>
 
         </div>
