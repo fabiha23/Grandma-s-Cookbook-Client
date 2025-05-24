@@ -56,6 +56,10 @@ const MyRecipe = () => {
             }
         });
     }
+
+    const handleAddRecipe = e => {
+        e.preventDefault()
+    }
     return (
         <div className='max-w-7xl xl:mx-auto xl:px-2 lg:px-6 mx-3'>
             <h2 className="text-4xl font-bold text-center text-primary mt-8">My Recipes</h2>
@@ -125,9 +129,67 @@ const MyRecipe = () => {
                             <p className='text-accent font-medium'>{reci.instructions}</p>
                         </div>
                         <div className='flex mb-4 mx-4 gap-4 '>
-                            <button className='bg-primary text-base-100 text-lg font-bold py-2 w-1/2 cursor-pointer rounded-md'>Update</button>
+                            <button onClick={() => document.getElementById('my_modal_5').showModal()} className='bg-primary text-base-100 text-lg font-bold py-2 w-1/2 cursor-pointer rounded-md'>Update</button>
+
                             <button onClick={() => handleDelete(reci._id)} className='bg-info text-base-100 text-lg font-bold py-2 w-1/2 rounded-md cursor-pointer'>Delete</button>
                         </div>
+                        {/* modal */}
+                        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                            <div className="modal-box">
+                                <form onSubmit={handleAddRecipe} className='md:p-6'>
+                                    <div className='grid grid-cols-2 gap-2 '>
+                                        <fieldset className="fieldset bg-base-200 rounded-box w-full">
+                                            <label className="text-accent font-semibold text-base">Image URL</label>
+                                            <input defaultValue={reci.photo} name='photo' type="text" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="https://example.com/image.jpg" />
+                                        </fieldset>
+                                        <fieldset className="fieldset bg-base-200 rounded-box w-full">
+                                            <label className="text-accent font-semibold text-base">Recipe Name</label>
+                                            <input defaultValue={reci.name} name='name' type="text" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="Chicken korma" />
+                                        </fieldset>
+                                        <fieldset className="fieldset bg-base-200 rounded-box w-full col-span-2">
+                                            <label className="text-accent font-semibold text-base">Ingredients</label>
+                                            <textarea defaultValue={reci.ingredients} name='ingredients' className="textarea w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" rows="3" placeholder="List ingredients separated by commas"></textarea>
+                                        </fieldset>
+                                        <fieldset className="fieldset bg-base-200 rounded-box w-full col-span-2">
+                                            <label className="text-accent font-semibold text-base">Instructions</label>
+                                            <textarea defaultValue={reci.instructions} name='instructions' className="textarea w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" rows="3" placeholder="Describe the steps to cook your recipe"></textarea>
+                                        </fieldset>
+                                        <fieldset className="fieldset bg-base-200 rounded-box w-full">
+                                            <label className="text-accent font-semibold text-base">Cuisine Type</label>
+                                            <select defaultValue={reci.cuisine} name='cuisine' className="select w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md text-accent">
+                                                <option value='Bangladeshi'>Bangladeshi</option>
+                                                <option value='Mexican'>Mexican</option>
+                                                <option value='Italian'>Italian</option>
+                                                <option value='Middle Eastern'>Middle Eastern</option>
+                                                <option value='Others'>Others</option>
+                                            </select>
+                                        </fieldset>
+                                        <fieldset className="fieldset bg-base-200 rounded-box w-full">
+                                            <label className="text-accent font-semibold text-base">Preparation Time (minutes)</label>
+                                            <input defaultValue={reci.time} name='time' type="number" className="input w-full focus:outline-0 focus:border-[#D9CFC1] focus:shadow-md" placeholder="e.g. 30" />
+                                        </fieldset>
+                                        <fieldset className="fieldset bg-base-200 rounded-box w-full col-span-2">
+                                            <label className="text-accent font-semibold text-base">Categories</label>
+                                            <div className="flex flex-wrap gap-4 mt-2 text-base">
+                                                {['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Vegan'].map((cat, index) => (
+                                                    <label key={index} className="label cursor-pointer text-accent">
+                                                        <input name='category' type="checkbox" className="checkbox checkbox-sm mr-2  text-accent" value={cat} defaultChecked={reci.category.includes(cat)}/>
+                                                        {cat}
+                                                    </label>
+                                                ))}
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+                                    <input type="submit" value="Update Recipe" className='bg-primary text-base-100 w-full mt-6 py-2 rounded-md text-lg font-semibold shadow-md cursor-pointer hover:bg-[#588B44] duration-300' />
+                                    <form method="dialog">
+                                        {/* if there is a button in form, it will close the modal */}
+                                        <button className=" py-2 px-5 rounded-md bg-gray-400 font-semibold text-lg text-white cursor-pointer hover:bg-secondary duration-300 will-change-transform mt-2 w-full">Close</button>
+                                    </form>
+                                </form>
+                            </div>
+                        </dialog>
+
                     </div>
 
                 ))}
