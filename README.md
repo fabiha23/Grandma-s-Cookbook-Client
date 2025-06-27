@@ -22,4 +22,4 @@ Grandmas Cookbook is a user-friendly React-based web application that allows use
 
 ## 🚀 Getting Started
 
-Link: https://leafy-moonbeam-498d03.netlify.app/
+Link: [live demo] (https://leafy-moonbeam-498d03.netlify.app/)
